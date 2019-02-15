@@ -1,0 +1,29 @@
+{
+  "name": "node-quiz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kristiyan Todorov",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js",
+    "start-production": "node app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bulma": "^0.7.2",
+    "csurf": "^1.9.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "flash": "^1.1.0",
+    "mongoose": "^5.4.8",
+    "node-fetch": "^2.3.0",
+    "node-sass-middleware": "^0.11.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
