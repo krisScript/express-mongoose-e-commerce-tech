@@ -1,7 +1,6 @@
-# Quiz express app
+# Express Mongoose Eccomerce app
  
-Data provided by [Open Trivia DB](https://opentdb.com/api_config.php).
-## Getting Started
+
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 

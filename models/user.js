@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 const userSchema = new Schema({
-  username:{
+  username: {
     type: String,
     required: true
   },
@@ -26,7 +26,6 @@ const userSchema = new Schema({
       }
     ]
   }
-
 });
 
 userSchema.methods.addToCart = function(product) {
@@ -64,4 +63,4 @@ userSchema.methods.clearCart = function() {
   this.cart = { items: [] };
   return this.save();
 };
-module.exports =  mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
