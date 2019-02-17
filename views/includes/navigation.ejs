@@ -26,7 +26,11 @@
       <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
         Contacts
       </a>
-      <% if (isAuthenticated) { %> <% } %>
+      <% if (isAdmin) { %>
+        <a class="navbar-item  <%= path === '/admin/add-product' ? 'is-active' : '' %>" href="/admin/add-product">
+          Add Product
+        </a>
+         <% } %>
     </div>
 
     <div class="navbar-end">

@@ -25,6 +25,7 @@ const app = express();
 //Routers
 const authRouter = require('./routes/auth')
 const indexRouter = require('./routes/index')
+const adminRouter = require('./routes/admin')
 const dbKey = require('./config/keys').mongoURI;
 mongoose
   .connect(
@@ -100,9 +101,14 @@ app.use(passport.session());
 app.use((req, res, next) => {
   if (!req.user) {
     res.locals.isAuthenticated = false;
+    res.locals.isAdmin = false;
     return next();
   } else {
     res.locals.isAuthenticated = true;
+    res.locals.isAdmin = false;
+    if(req.user.admin){
+      res.locals.isAdmin = true;
+    }
    return next();
   }
 });
@@ -113,7 +119,7 @@ process.on('unhandledRejection', (reason, p) => {
 
 app.use(indexRouter)
 app.use(authRouter)
-
+app.use('/admin',adminRouter)
 // app.use((error, req, res, next) => {
 //   res.status(404).redirect('/404');
 // });

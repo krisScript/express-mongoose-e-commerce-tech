@@ -56,6 +56,7 @@ exports.postSignUp = async (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
+  
   res.render('auth/signup-login', {
     user: req.user,
     title: 'Home',

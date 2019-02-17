@@ -3,6 +3,11 @@
   
   <body>
       <%- include('includes/navigation.ejs') %>
+      <% if (errorMessage) { %>
+        <div class="notification is-danger">
+          <p><%= errorMessage %></p>
+        </div>
+        <% } %>
       <section class="section columns has-background-dark is-multiline">
         <div class="column is-one-quarter">
 
