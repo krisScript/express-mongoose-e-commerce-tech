@@ -1,7 +1,179 @@
-<%- include('../includes/head.ejs') %>
-    </head>
-  
-  <body>
-      <%- include('../includes/navigation.ejs') %>
-    <h1 class="title">Add Product</h1>
-    <%- include('../includes/end.ejs') %></section>
+  <%- include('../includes/head.ejs') %>
+      </head>
+    
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+      <section class="section columns is-multiline">
+        <div class="column is-one-third"></div>
+        <form action="/admin/add-product" method="POST" class="box column is-one-third "enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <% if (errorMessage) { %>
+            <div class="notification is-danger">
+              <p><%= errorMessage %></p>
+            </div>
+          <% }  %>
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input <%= validationErrors.find(e => e.param === 'name') ? 'is-danger' : '' %>" type="text"
+                  name="name"
+                  required value="<%= oldInput.name  %>" 
+                  placeholder="Name">
+                </div>
+              </div>
+              
+
+<div class="field">
+    <div class="control">
+      <div class="select <%= validationErrors.find(e => e.param === 'brand') ? 'is-danger' : '' %>">
+        <select name="brand">
+          <option value="dell">Dell</option>
+          <option value="asus">Asus</option>
+          <option value="hp">HP</option>
+        </select>
+      </div>
+    </div>
+  </div>
+            
+              
+              <div class="field ">
+                <label class="label">Price</label>
+                <div class="control  ">
+                  <input class="input " type="number" 
+                  name="price" placeholder="Price"  value="<%= oldInput.price  %>">
+
+                </div>
+              </div>
+              <div class="field ">
+                  <div class="file has-name is-dark">
+                      <label class="file-label">
+                        <input class="file-input" type="file" name="image" required>
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label">
+                            Choose a file…
+                          </span>
+                        </span>
+                        <span class="file-name">
+                         Choose Image
+                        </span>
+                      </label>
+                    </div>
+                </div>
+              <div class="field">
+                  <label class="label">Available Units</label>
+                  <div class="control  ">
+                    <input class="input <%= validationErrors.find(e => e.param === 'availableUnits') ? 'is-danger' : '' %>" 
+                    name="availableUnits"
+                    required value="<%=  oldInput.availableUnits  %>"
+                    type="number" placeholder="Available Units" min="1">
+      
+                  </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Screen Size</label>
+                    <div class="control  ">
+                      <input class="input <%= validationErrors.find(e => e.param === 'screenSize') ? 'is-danger' : '' %>" 
+                      required value="<%=  oldInput.screenSize  %>"
+                      name="screenSize"
+                      type="number" placeholder="Screen Size" >
+        
+                    </div>
+                  </div>
+              
+                  <div class="field">
+                      <label class="label">CPU</label>
+                      <div class="control  ">
+                        <input class="input <%= validationErrors.find(e => e.param === 'cpu') ? 'is-danger' : '' %>" 
+                        required value="<%=  oldInput.cpu  %>"
+                        name="cpu"
+                        type="text" placeholder="CPU Description" >
+                      </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">GPU</label>
+                        <div class="control  ">
+                          <input class="input <%= validationErrors.find(e => e.param === 'gpu') ? 'is-danger' : '' %>" 
+                          name="gpu"
+                          required value="<%=  oldInput.gpu  %>"
+                          type="text" placeholder="GPU Description" >
+                        </div>
+                      </div>
+                
+                      <div class="field">
+                          <label class="label">RAM</label>
+                          <div class="control  ">
+                            <input class="input <%= validationErrors.find(e => e.param === 'ram') ? 'is-danger' : '' %>" 
+                            name="ram"
+                            required value="<%=  oldInput.ram  %>"
+                            type="text" placeholder="RAM Description" >
+                          </div>
+                        </div>
+                        <div class="field has-addons">
+                            <p class="control">
+                              <span class="select">
+                                <select name="memoryType">
+                                  <option value="ssd">SSD</option>
+                                  <option value="hdd">HDD</option>
+                                </select>
+                              </span>
+                            </p>
+                            <p class="control">
+                              <input class="input is-fullwidth" type="number" name="capacity" placeholder="Memory Capacity" min="250" max="1000">
+                            </p>
+                          </div>
+                          
+                    <div class="field">
+                        <label class="label">Battery Life</label>
+                        <div class="control  ">
+                          <input class="input <%= validationErrors.find(e => e.param === 'batteryLife') ? 'is-danger' : '' %>" 
+                          required value="<%=  oldInput.batteryLife  %>"
+                          name="batteryLife"
+                          type="number" placeholder="Batery Lifre" >
+            
+                        </div>
+                      </div>
+              
+                   
+                    
+                <div class="field">
+                  <label class="label">Description</label>
+                  <div class="control">
+                    <textarea class="textarea <%= validationErrors.find(e => e.param === 'description') ? 'is-danger' : '' %>" 
+                        value="<%= oldInput.description  %>"
+                      placeholder="Product Description" name="description"><%= oldInput.description  %></textarea>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <div class="select ">
+                      <select name="os">
+                          <option value="No system">No system</option>
+                          <option value="FreeDos">FreeDos</option>
+                          <option value="Windows 10">Windows 10</option>
+                          <option value="Ubuntu">Ubuntu</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              
+
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                  <a class="button is-text" href="/">Cancel</a>
+                </div>
+                <div class="control">
+                    <a class="button is-text" href="/">Clear</a>
+                  </div>
+              </div>
+        </form>
+        <div class="column is-one-third"></div>
+      </section>
+      <%- include('../includes/end.ejs') %></section>

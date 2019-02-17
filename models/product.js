@@ -27,7 +27,7 @@ const productSchema = new Schema({
     required: true
   },
   screenSize: {
-    type: String,
+    type: Number,
     required: true
   },
   cpu: {
@@ -38,17 +38,24 @@ const productSchema = new Schema({
     type: String,
     required: true
   },
-  bateryLife: {
+  batteryLife: {
     type: Number,
     required: true
   },
   ram: {
-    type: String,
+    type: Number,
     required: true
   },
-  hardDrive: {
-    type: String,
-    required: true
+  memory: {
+    capacity:{
+      type: Number,
+      required: true
+    },
+    memoryType:{
+      type: String,
+      required: true
+    }
+
   },
   os: {
     type: String,

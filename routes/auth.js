@@ -8,6 +8,7 @@ const authController = require('../controllers/auth');
 router.get('/sign-up', authController.getSignUp);
 router.post(
   '/sign-up',
+  [
   body('username', 'User Name should be atlest 4 characters long')
     .isLength({ min: 4 })
     .isString()
@@ -43,7 +44,7 @@ router.post(
         throw new Error('Passwords have to match!');
       }
       return true;
-    }),
+    })],
   authController.postSignUp
 );
 router.post('/login', authController.postLogin);
