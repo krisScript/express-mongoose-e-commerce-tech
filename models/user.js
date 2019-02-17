@@ -14,6 +14,22 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  firstName: {
+    type: String,
+    required: false
+  },
+  lastName: {
+    type: String,
+    required: false
+  },
+  phoneNumber: {
+    type: String,
+    required: false
+  },
+  address: {
+    type: String,
+    required: false
+  },
   cart: {
     items: [
       {
@@ -63,4 +79,8 @@ userSchema.methods.clearCart = function() {
   this.cart = { items: [] };
   return this.save();
 };
-module.exports = mongoose.model('User', userSchema);
+
+const User = mongoose.model('User', userSchema);
+
+
+module.exports = User

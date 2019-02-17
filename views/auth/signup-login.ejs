@@ -3,10 +3,11 @@
   
   <body>
       <%- include('../includes/navigation.ejs') %>
-   <section class="section">
+   <section class="section columns is-multiline">
+     <div class="is-one-third column">
+
      </div>
-     <div class="box">
-       
+       <form class="box is-one-third column" action="<%= signup ? 'sign-up' : 'login' %>" method="POST">
       <h2 class="title is-size-4"><%= signup ? 'Sign Up' : 'Login' %></h2>
 
       <% if (errorMessage) { %>
@@ -15,11 +16,12 @@
         </div>
       <% } %>
       <form method="POST" action="/<% if (signup) { %>signup<% } else { %>login<% } %>" >  
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <% if (signup) { %>
           <div class="field">
             <label class="label">Username</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input <%= validationErrors.find(e => e.param === 'userName') ? 'is-danger' : '' %>" type="text" placeholder="Enter your first name" name="userName" required value="<%= signup ? oldInput.userName : '' %>">
+              <input class="input <%= validationErrors.find(e => e.param === 'username') ? 'is-danger' : '' %>" type="text" placeholder="Enter your username" name="username" required value="<%= signup ? oldInput.username : '' %>">
               <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
               </span>
@@ -30,7 +32,6 @@
        <div class="field">
          <label class="label">Email</label>
          <div class="control has-icons-left has-icons-right">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
            <input class="input <%= validationErrors.find(e => e.param === 'email') ? 'is-danger' : '' %>" type="email" placeholder="Enter your email" name="email" value="<%= signup ? oldInput.email : '' %>" required>
            <span class="icon is-small is-left">
              <i class="fas fa-envelope"></i>
@@ -64,7 +65,9 @@
          </div>
        </div>
       </form>
-  </div>
+      <div class="is-one-third column">
+
+        </div>
    </section>
 
     <%- include('../includes/end.ejs') %>

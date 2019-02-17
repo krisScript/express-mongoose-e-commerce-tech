@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const { validationResult } = require('express-validator/check');
 const User = require('../models/user');
 exports.getSignUp = (req, res, next) => {
   res.render('auth/signup-login', {
     user: req.user,
     title: 'Home',
-    path: '/home',
+    path: '/sign-up',
     signup: true,
     errorMessage: false,
     validationErrors: [],
@@ -18,38 +19,47 @@ exports.getSignUp = (req, res, next) => {
   });
 };
 exports.postSignUp = async (req, res, next) => {
-  const { userName, email, password } = req.body;
-  if (user) {
-    res.render('register', {
-      errors,
-      userName,
-      email,
-      password
-    });
-  } else {
-    const newUser = new User({
-      userName,
-      email,
-      password
-    });
-
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, async (err, hash) => {
-        if (err) throw err;
-        newUser.password = hash;
-        await newUser.save();
-        req.flash('success_msg', 'You are now registered and can log in');
-        res.redirect('/login');
-      });
+  const errors = validationResult(req);
+  const { username, email, password ,matchPassword} = req.body;
+  const user = new User({
+    username,
+    email,
+    password
+  });
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    return res.status(422).render('auth/signup-login', {
+      path: '/sign-up',
+      title: 'Signup',
+      signup: true,
+      errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email,
+        password,
+        matchPassword,
+        username
+      },
+      validationErrors: errors.array()
     });
   }
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(user.password, salt, async (err, hash) => {
+      try {
+        user.password = hash;
+        await user.save();
+        res.redirect('/login');
+      } catch (err) {
+        console.log(error)
+      }
+    });
+  });
 };
 
 exports.getLogin = (req, res, next) => {
   res.render('auth/signup-login', {
     user: req.user,
     title: 'Home',
-    path: '/home',
+    path: '/login',
     signup: false,
     errorMessage: false,
     validationErrors: []

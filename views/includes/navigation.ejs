@@ -1,4 +1,4 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a
       role="button"
@@ -17,71 +17,29 @@
       <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
         Home
       </a>
-      <% if (user) { %>
-      <a
-        class="navbar-item <%= path === '/new-quiz' ? 'is-active' : '' %>"
-        href="/new-quiz"
-      >
-        New Quiz
+      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
+        Shop
       </a>
-      <% } %>
-      <a class="navbar-item  <%= path === '/leaderboard' ? 'is-active' : '' %>" href="/leaderboard">
-        Leaderboard
+      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
+        About
       </a>
-
+      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
+        Contacts
+      </a>
+      <% if (isAuthenticated) { %> <% } %>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <% if (!user) { %>
-          <a class="button is-primary" href="/sign-up">
+          <% if (!isAuthenticated) { %>
+          <a class="button is-dark " href="/sign-up">
             <strong>Sign up</strong>
           </a>
-          <a class="button is-light" href="/login"> Log in </a> <% } else { %>
-          <a class="button is-light" href="/logout"> Log out </a> <% } %>
+          <a class="button is-dark  " href="/login"> <strong>login</strong> </a> <% } else { %>
+          <a class="button is-dark  " href="/logout"> <strong>Logout</strong> </a> <% } %>
         </div>
       </div>
     </div>
   </div>
 </nav>
-<!-- <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-   
-    <a
-      role="button"
-      class="navbar-burger burger"
-      aria-label="menu"
-      aria-expanded="false"
-      data-target="navbarBasicExample"
-    >
-      <span aria-hidden="true"></span> <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
-        Home
-      </a>
-      
-<% if (user) { %>
-  <a
-        class="navbar-item <%= path === '/berries' ? 'is-active' : '' %>"
-        href="/berries"
-      >
-        New Quiz
-      </a>
-      <% } %>
-      
-    </div>
-    <div class="buttons">
-      <a class="button is-primary">
-        <strong>Sign up</strong>
-      </a>
-      <a class="button is-light">
-        Log in
-      </a>
-    </div>
-  </div>
-</nav> -->
