@@ -4,6 +4,7 @@ const { body } = require('express-validator/check');
 const router = express.Router();
 const Product = require('../models/product');
 const adminController = require('../controllers/admin');
+router.get('/products', isAdmin, adminController.getProducts);
 router.get('/add-product', isAdmin, adminController.getAddProduct);
 router.post(
   '/add-product',
@@ -13,7 +14,6 @@ router.post(
       ' Name should be atlest 4 characters long and should be alphanumeric'
     )
       .isLength({ min: 4 })
-      .isAlphanumeric()
       .isString()
       .escape()
       .trim()
@@ -34,7 +34,7 @@ router.post(
       .escape()
       .trim(),
     body(
-      'Price',
+      'price',
       ' Brand should be atlest 2 characters long and should be alphabetic'
     )
       .isLength({ min: 3, max: 4 })
@@ -56,13 +56,11 @@ router.post(
       .trim(),
     body('cpu', 'CPU descruption should be longer than 10 characters.')
       .isLength({ min: 10 })
-      .isAlphanumeric()
       .isString()
       .escape()
       .trim(),
     body('gpu', 'GPU descruption should be longer than 10 characters.')
       .isLength({ min: 10 })
-      .isAlphanumeric()
       .isString()
       .escape()
       .trim(),
@@ -70,47 +68,33 @@ router.post(
       'ram',
       'RAM value should be even number bigger than 4 and smaller than 32.'
     )
-      .isLength({ min: 1, max: 2 })
-      .isNumeric()
       .isString()
       .escape()
-      .trim()
-      .custom((ram, { req }) => {
-        if (ram % 2 !== 0 || ram > 32 || ram < 4) {
-          return Promise.reject('RAM Value is invalid');
-        }
-      }),
+      .trim(),
     body('memoryType', 'Memory type should be either SSD or HDD.')
       .isLength({ min: 3, max: 3 })
       .isAlpha()
       .isString()
       .escape()
-      .trim()
-      .custom((memoryType, { req }) => {
-          if (memoryType !== "ssd" || memoryType !== "hdd" ) {
-            return Promise.reject('Memory Type value is invalid');
-          }
-      }),
+      .trim(),
       body('capacity', 'Memory capacity  should be either  smaller than 1000 and biggner than 250')
       .isLength({ min: 3, max: 4 })
       .isNumeric()
       .isString()
       .escape()
-      .trim()
-      .custom((capacity, { req }) => {
-          if (capacity > 1000 || capacity < 250) {
-            return Promise.reject('Capacity  value is invalid');
-          }
-      }),
-      body('batteryLifre', 'Description of battery life')
+      .trim(),
+      body('batteryLife', 'Description of battery life')
       .isLength({ min: 1, max:2  })
-      .isAlpha()
       .isString()
       .escape()
       .trim(),
-      body('description', 'Description must be atleast 30 characters')
-      .isLength({ min: 1, max:2  })
-      .isAlphanumeric()
+      body('description', 'Description must be atleast 30 and maximum 200 characters long')
+      .isLength({ min: 30, max:1000  })
+      .isString()
+      .escape()
+      .trim(),
+      body('os', 'Os is shit')
+      .isLength({ min: 6, max:10  })
       .isString()
       .escape()
       .trim()
