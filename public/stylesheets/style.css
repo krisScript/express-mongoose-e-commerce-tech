@@ -5802,4 +5802,12 @@ a.box:active {
     background-color: #ff3860;
     color: #fff; }
 
+.card {
+  display: flex;
+  width: 100%;
+  flex-direction: column; }
+
+.card-footer {
+  margin-top: auto; }
+
 /*# sourceMappingURL=style.css.map */

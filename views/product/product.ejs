@@ -1,0 +1,36 @@
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<div class="card">
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img src="/<%= product.imageUrl %>" alt="Placeholder image">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="/images/<%= product.brand %>-logo.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-size-4"><%= product.name %></p>
+              <p class="subtitle is-size-5">Price: $<%= product.price %></p>
+            </div>
+          </div>
+      
+          <div class="content">
+              <%= product.description %>
+            <a href="#">#css</a> <a href="#">#responsive</a>
+
+          </div>
+          
+        </div>
+        <footer class="card-footer">
+            <a href="#" class="card-footer-item">Save</a>
+            <a href="#" class="card-footer-item">Edit</a>
+            <a href="#" class="card-footer-item">Details</a>
+            <% if (isAdmin) { %>
+                <a data-productId="<%= product._id %>" class="card-footer-item delete-btn">Delete</a>
+                 <% } %>
+          </footer>
+      </div>

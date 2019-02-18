@@ -146,7 +146,20 @@ exports.getProducts = async (req,res,next) => {
    }
   
 }
-
+exports.deleteProduct = async (req,res,next) => {
+  try{
+    const { productId } = req.params;
+    console.log(productId)
+    const product = await Product.findById(productId);
+    fileDelete(product.imageUrl);
+    await Product.findByIdAndDelete({ _id: productId });
+    res.status(200).json({ msg: 'product deleted' });
+  }
+  catch(err){
+    console.log(err)
+  }
+ 
+}
 // <% for (let product of products) { %>
   
 //   <div class="column is-one-quarter">

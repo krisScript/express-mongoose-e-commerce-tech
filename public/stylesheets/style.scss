@@ -20,5 +20,14 @@
 @import '../../node_modules/bulma/sass/elements/title.sass';
 @import '../../node_modules/bulma/sass/elements/notification.sass';
 
-
+.card{
+    display: flex;
+    width: 100%;
+    flex-direction: column
+}
+.card-footer{
+    margin-top: auto
+    
+}
+  
 
