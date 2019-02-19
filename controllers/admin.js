@@ -123,11 +123,9 @@ exports.postAddProduct = async (req, res, next) => {
 exports.getProducts = async (req,res,next) => {
 
    try{
-     const itemsPerPage = 4
+    const itemsPerPage = 4
     const paginationData = await pagination(req,itemsPerPage)
     const {products,totalItems,page} = paginationData
-    console.log(products,totalItems,page)
-    console.log(itemsPerPage * page < totalItems)
     res.render('admin/products', {
     products,
     title:'Products',
@@ -138,7 +136,8 @@ exports.getProducts = async (req,res,next) => {
     hasPreviousPage: page > 1,
     nextPage: page + 1,
     previousPage: page - 1,
-    lastPage: Math.ceil(totalItems / itemsPerPage)
+    lastPage: Math.ceil(totalItems / itemsPerPage),
+
   })
    }
    catch(err){
@@ -149,7 +148,6 @@ exports.getProducts = async (req,res,next) => {
 exports.deleteProduct = async (req,res,next) => {
   try{
     const { productId } = req.params;
-    console.log(productId)
     const product = await Product.findById(productId);
     fileDelete(product.imageUrl);
     await Product.findByIdAndDelete({ _id: productId });
@@ -160,6 +158,39 @@ exports.deleteProduct = async (req,res,next) => {
   }
  
 }
+
+
+exports.getProduct = async (req, res, next) => {
+  try{
+    const {productId} = req.params;
+    const product = await Product.findById(productId)
+    //Product specs with be array of arrays each containing name and value of product specifications.[[spec1:'dummy value'],[spec2:'dummy value']]
+    const productSpecs = Object.entries(product._doc).map(spec => {
+      const specName = spec[0]
+      const specValue = spec[1]
+      if(specName !== 'description' && specName !== 'imageUrl' && specName !== '_id'  && specName !== '__v' && specName !== 'availableUnits'
+      ){
+        if(specName == 'memory' ){
+          return [specName,`${specValue.memoryType} ${specValue.capacity}`]
+        }
+        return spec
+      }
+    })
+    console.log(productSpecs)
+    res.render('product/product-details', {
+          product,
+          productSpecs,
+          title: product.name,
+          path: 'admin/product',
+          errorMessage:false,
+
+        });
+
+  }catch(err){
+
+  }
+  
+};
 // <% for (let product of products) { %>
   
 //   <div class="column is-one-quarter">

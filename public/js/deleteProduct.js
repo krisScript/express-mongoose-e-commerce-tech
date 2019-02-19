@@ -7,6 +7,7 @@ const deleteProduct = () => {
       deleteBtnList.forEach(deleteBtn => {
         deleteBtn.addEventListener('click', e => {
             e.preventDefault()
+           
           const productId = e.target.getAttribute('data-productId');
           fetch(`/admin/delete-product/${productId}`, {
             method: 'DELETE',
@@ -18,10 +19,17 @@ const deleteProduct = () => {
               return response.json();
             })
             .then(response => {
-              if (response.msg === 'product deleted') {
-                const selectedProduct = document.querySelector(`#post-${productId}`);
-                selectedProduct.remove();
+
+              if(e.target.getAttribute('data-redirect')){
+               
+                window.location.replace(document.referrer);
+              }else{
+                if (response.msg === 'product deleted') {
+                  const selectedProduct = document.querySelector(`#post-${productId}`);
+                  selectedProduct.remove();
+                }
               }
+             
             });
         });
       });

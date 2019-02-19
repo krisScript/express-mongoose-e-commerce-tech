@@ -20,15 +20,14 @@
       
           <div class="content">
               <%= product.description %>
-            <a href="#">#css</a> <a href="#">#responsive</a>
-
           </div>
           
         </div>
         <footer class="card-footer">
             <a href="#" class="card-footer-item">Save</a>
             <a href="#" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Details</a>
+              <a href="/admin/product/<%= product._id %>" class="card-footer-item">Details</a>
+
             <% if (isAdmin) { %>
                 <a data-productId="<%= product._id %>" class="card-footer-item delete-btn">Delete</a>
                  <% } %>
