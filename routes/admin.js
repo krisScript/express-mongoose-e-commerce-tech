@@ -6,7 +6,6 @@ const Product = require('../models/product');
 const adminController = require('../controllers/admin');
 router.get('/products', isAdmin, adminController.getProducts);
 router.get('/add-product', isAdmin, adminController.getAddProduct);
-router.get('/product/:productId', isAdmin, adminController.getProduct);
 router.delete('/delete-product/:productId', isAdmin, adminController.deleteProduct);
 
 router.get('/edit-product/:productId',isAdmin,adminController.getEditProduct)

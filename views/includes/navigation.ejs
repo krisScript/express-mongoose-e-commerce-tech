@@ -17,14 +17,11 @@
       <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
         Home
       </a>
-      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
+      <a class="navbar-item  <%= path === '/shop' ? 'is-active' : '' %>" href="/shop">
         Shop
       </a>
-      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
+      <a class="navbar-item  <%= path === '/about' ? 'is-active' : '' %>" href="/about">
         About
-      </a>
-      <a class="navbar-item  <%= path === '/' ? 'is-active' : '' %>" href="/">
-        Contacts
       </a>
       <% if (isAdmin) { %>
         <a class="navbar-item  <%= path === '/admin/add-product' ? 'is-active' : '' %>" href="/admin/add-product">

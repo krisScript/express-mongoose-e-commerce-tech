@@ -1,9 +1,8 @@
-'use strict'
+'use strict';
 const express = require('express');
 const path = require('path');
 
-
-const adminConfig  =  require('./middleware/adminConfig')
+const adminConfig = require('./middleware/adminConfig');
 
 const errorController = require('./controllers/error');
 
@@ -20,32 +19,30 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const fs = require('fs');
-const passport = require('passport')
+const passport = require('passport');
 const app = express();
 //Routers
-const authRouter = require('./routes/auth')
-const indexRouter = require('./routes/index')
-const adminRouter = require('./routes/admin')
+const authRouter = require('./routes/auth');
+const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin');
+const shopRouter = require('./routes/shop');
 const dbKey = require('./config/keys').mongoURI;
-mongoose
-  .connect(
-    dbKey,
-    { useNewUrlParser: true }
-  )
-
+mongoose.connect(dbKey, { useNewUrlParser: true });
 
 app.set('view engine', 'ejs');
 const csrfProtection = csrf();
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
-  sourceMap: true
-}));
+app.use(
+  sassMiddleware({
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: false, // true = .sass and false = .scss
+    sourceMap: true
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 require('./config/passport')(passport);
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -71,7 +68,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
@@ -93,8 +89,7 @@ app.use((req, res, next) => {
   next();
 });
 
- adminConfig()
-
+adminConfig();
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -106,26 +101,23 @@ app.use((req, res, next) => {
   } else {
     res.locals.isAuthenticated = true;
     res.locals.isAdmin = false;
-    if(req.user.admin){
+    if (req.user.admin) {
       res.locals.isAdmin = true;
     }
-   return next();
+    return next();
   }
 });
 process.on('unhandledRejection', (reason, p) => {
-  console.log(reason)
+  console.log(reason);
 });
 
-
-app.use(indexRouter)
-app.use(authRouter)
-app.use('/admin',adminRouter)
+app.use(indexRouter);
+app.use(authRouter);
+app.use(shopRouter);
+app.use('/admin', adminRouter);
 
 app.use(errorController.get404);
-
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
-
-

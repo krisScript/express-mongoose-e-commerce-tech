@@ -8,6 +8,7 @@
           <p><%= errorMessage %></p>
         </div>
         <% } %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <section class="section columns is-multiline">
           <% for (let product of products) { %>
            <div class="column is-one-quarter is-flex" id="post-<%= product._id %>">

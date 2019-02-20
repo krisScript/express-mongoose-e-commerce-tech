@@ -28,8 +28,11 @@
                         </div>
                         <div class="media-content">
                             <p class="is-size-4"><%= product.name %></p>
+                            <% if (isAdmin) { %>
+                              <p class="is-size-5">Available Units: <%= product.availableUnits %></p>
+                                 <% } %>
                             <p class="is-size-5 no-padding-bottom">Price: $<%= product.price %></p>
-                            <p class="is-size-5">Available Units: <%= product.availableUnits %></p>
+                            
                         </div>
                       </div>
                       <table class="table">
@@ -53,6 +56,9 @@
                           </tbody>
                         </table>
                         <div class="card">
+                            <div class="content">
+                                <%= product.description %>
+                            </div>
                           <footer class="card-footer">
                               <% if (isAdmin) { %>
                                 <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>

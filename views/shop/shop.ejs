@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+  
+  <body>
+      <%- include('../includes/navigation.ejs') %>
+      <% if (errorMessage) { %>
+        <div class="notification is-danger">
+          <p><%= errorMessage %></p>
+        </div>
+        <% } %>
+        <section class="hero is-dark">
+                <div class="hero-body">
+                  <div class="container">
+                    <h1 class="title">
+                      Shop
+                    </h1>
+                    <h2 class="subtitle">
+                      Categories
+                    </h2>
+                  </div>
+                </div>
+              </section>
+     <section class="section columns is-multiline">
+         <div class="column is-2">
+                <aside class="menu box">
+                        <p class="menu-label">
+                          Brands
+                        </p>
+                        <ul class="menu-list">
+                          <li><a>Dell</a></li>
+                          <li><a>Hp</a></li>
+                          <li><a>Asus</a></li>
+                        </ul>
+                      </aside> 
+         </div>
+         <div class="column is-10 columns is-multiline">
+                <% for (let product of products) { %>
+                    <div class="column is-one-fifth is-flex" id="post-<%= product._id %>">
+                       <%- include('../product/product.ejs',{product:product})  %>
+                    </div>
+                   <% }  %> 
+         </div>
+     </section>
+    <%- include('../includes/end.ejs') %>
