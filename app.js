@@ -120,10 +120,8 @@ process.on('unhandledRejection', (reason, p) => {
 app.use(indexRouter)
 app.use(authRouter)
 app.use('/admin',adminRouter)
-// app.use((error, req, res, next) => {
-//   res.status(404).redirect('/404');
-// });
-// app.use(errorController.get404);
+
+app.use(errorController.get404);
 
 
 const PORT = process.env.PORT || 3000;

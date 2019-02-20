@@ -54,8 +54,8 @@
                         </table>
                         <div class="card">
                           <footer class="card-footer">
-                              <a href="#" class="card-footer-item">Edit</a>
                               <% if (isAdmin) { %>
+                                <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>
                                   <a data-productId="<%= product._id %>" 
                                     data-redirect="true" class="card-footer-item delete-btn">Delete</a>
                                    <% } %>

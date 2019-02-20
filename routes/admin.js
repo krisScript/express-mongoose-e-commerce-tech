@@ -8,6 +8,9 @@ router.get('/products', isAdmin, adminController.getProducts);
 router.get('/add-product', isAdmin, adminController.getAddProduct);
 router.get('/product/:productId', isAdmin, adminController.getProduct);
 router.delete('/delete-product/:productId', isAdmin, adminController.deleteProduct);
+
+router.get('/edit-product/:productId',isAdmin,adminController.getEditProduct)
+router.post('/edit-product',isAdmin,adminController.postEditProduct)
 router.post(
   '/add-product',
   [

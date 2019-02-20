@@ -5,7 +5,8 @@
         <%- include('../includes/navigation.ejs') %>
       <section class="section columns is-multiline">
         <div class="column is-one-third"></div>
-        <form action="/admin/add-product" method="POST" class="box column is-one-third "enctype="multipart/form-data">
+       
+        <form action=" <%= edit  ? '/admin/edit-product ' : '/admin/add-product' %>" method="POST" class="box column is-one-third "enctype="multipart/form-data">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <% if (errorMessage) { %>
             <div class="notification is-danger">
@@ -44,10 +45,19 @@
 
                 </div>
               </div>
+              <% if (edit) { %>
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <input hidden type="text" value="<%= oldInput.imageUrl  %>" name="oldImageUrl">
+                 <% } %>
               <div class="field ">
                   <div class="file has-name is-dark">
                       <label class="file-label">
-                        <input class="file-input" type="file" name="image" required>
+                          <% if (edit) { %>
+                            <input class="file-input" type="file" name="image"  >
+                             <% } 
+                             else { %>
+                              <input class="file-input" type="file" name="image" required  >
+                              <% } %>
                         <span class="file-cta">
                           <span class="file-icon">
                             <i class="fas fa-upload"></i>
@@ -160,6 +170,10 @@
                   <div class="control">
                     <div class="select ">
                       <select name="os">
+                          <% if (edit) { %>
+                            <option value="<%= oldInput.os  %>"><%= oldInput.os  %></option>
+                             <% } 
+                              %>
                           <option value="no system">No system</option>
                           <option value="freedos">FreeDos</option>
                           <option value="windows 10">Windows 10</option>
