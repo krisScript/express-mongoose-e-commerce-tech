@@ -8,11 +8,16 @@
           <p><%= errorMessage %></p>
         </div>
         <% } %>
-        <% if (isAdmin) { %>
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <% } %>
+
           <section class="section">
-             <h1 class="title is-size-3 has-text-centered">1 item in the cart</h1>
+              <% if (productsInCart > 1) { %>
+                <h1 class="title is-size-3 has-text-centered products-count"><%= productsInCart %> items in the cart</h1>
+                <% }else { %>
+                  <h1 class="title is-size-3 has-text-centered products-count"> <%= productsInCart === 0 ? 'No products Found!' : '1 product found' %></h1>
+                  
+                   <%}  %>
+            
              <section class="section columns is-multiline">
               
                     <div class="column is-one-third">

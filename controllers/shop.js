@@ -58,9 +58,7 @@ exports.postAddToCart = async (req,res,next) => {
       const authUserId = req.user._id
       const product = await Product.findById(productId)
       const user = await User.findById(authUserId)
-       user.addToCart(product)
-
-      await user.save()
+      await user.addToCart(product)
       res.redirect('/cart')
     }catch(err){
         console.log(err)
@@ -73,7 +71,9 @@ exports.getCart  = async (req,res,next) => {
     const {user} = req
     await user.populate('cart.products.productId').execPopulate()
     const {products} = await user.cart
+    const productsInCart = products.length
     res.render('shop/cart', {
+      productsInCart,
       products,
       title:'Cart',
       path: 'cart',
@@ -88,7 +88,8 @@ exports.getRemoveProductFromCart = async (req,res,next) => {
    const {user} = req
     const {productId} = req.params
     await user.removeFromCart(productId)
-    res.redirect('/cart')
+    const productsInCart = user.cart.products.length
+    res.status(200).json({ msg: 'product removed',productsInCart });
   }catch(err){
       console.log(err)
   }
