@@ -24,17 +24,56 @@
                       
                     </div>
                     <div class="column is-one-third box">
+                        <% if (products.length === 0) { %>
+                          <div class="has-text-centered">
+                              <a href="/shop" class="button is-dark">
+                                Continue Shopping
+                              </a>
+                          </div>
+                          <% } %>
                         <% for (let product of products) { %>
                              <%- include('../product/cart-product.ejs',{product:product})  %>
                          <% }  %> 
-                     
+                         <article class="media " >
+                           <div class="media-left">
+            
+
+                           </div>
+                            <div class="media-content">
+                              <div class="content">
+                                  <p>
+                                      Lrem ipsum, dolor sit amet consectetur adipisicing elit.
+                                      <br >
+                                      
+                                
+                                    </p>
+                              </div>
+                            </div>
+                            <div class="media-right">
+                                    <strong class="is-size-5 has-text-grey-dark" >Subtotal:   $<%= price %></strong> 
+                                    <br>
+                                    <strong class="is-size-5 has-text-grey-dark" >Tax    $<%= tax %></strong> 
+                                    <br>
+                                    <strong class="is-size-4" >Total Price:  $<%= totalPrice %></strong> 
+                            </div>
+                          </article>
+                          <section class="section">
+                              <div class="field is-grouped is-grouped-centered">
+                                  <div class="control">
+                                    <a href="/shop" class="button is-dark is-inverted">Continue Shopping</a>
+                                  </div>
+                                  <div class="control">
+                                    <button class="button is-dark">Proceed to Checkout</button>
+                                  </div>
+                                </div>
+                          </section>
+                            
                    </div>
 
                    <div class="column is-one-third">
      
-                   </div>
-                
+                   </div> 
              </section>
-            
+
           </section>
     <%- include('../includes/end.ejs') %>

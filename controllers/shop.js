@@ -72,7 +72,20 @@ exports.getCart  = async (req,res,next) => {
     await user.populate('cart.products.productId').execPopulate()
     const {products} = await user.cart
     const productsInCart = products.length
+    const priceCalcArray = products.map(product => {
+      return product.quantity * product.productId.price
+    })
+    const  price = priceCalcArray.reduce((a, b) =>    a + b , 0);
+    console.log(price)
+    console.log(priceCalcArray)
+    const taxPerc = 10
+    const tax =  taxPerc *(price/100)
+    const totalPrice = tax + price
+    // console.log(products)
     res.render('shop/cart', {
+      totalPrice,
+      price,
+      tax,
       productsInCart,
       products,
       title:'Cart',
