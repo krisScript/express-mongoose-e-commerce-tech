@@ -25,7 +25,7 @@ const deleteProduct = () => {
                 window.location.replace(document.referrer);
               }else{
                 if (response.msg === 'product deleted') {
-                  const selectedProduct = document.querySelector(`#post-${productId}`);
+                  const selectedProduct = document.querySelector(`#product-${productId}`);
                   selectedProduct.remove();
                 }
               }

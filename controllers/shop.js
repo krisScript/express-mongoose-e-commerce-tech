@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const User = require('../models/user')
 exports.getShop = async (req, res, next) => {
   try {
     const { brand } = req.query;
@@ -49,4 +50,46 @@ exports.getProduct = async (req, res, next) => {
       errorMessage: false
     });
   } catch (err) {}
-};
+}
+
+exports.postAddToCart = async (req,res,next) => {
+    try{
+      const {productId} = req.params
+      const authUserId = req.user._id
+      const product = await Product.findById(productId)
+      const user = await User.findById(authUserId)
+       user.addToCart(product)
+
+      await user.save()
+      res.redirect('/cart')
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+exports.getCart  = async (req,res,next) => {
+  try{
+    const {user} = req
+    await user.populate('cart.products.productId').execPopulate()
+    const {products} = await user.cart
+    res.render('shop/cart', {
+      products,
+      title:'Cart',
+      path: 'cart',
+      errorMessage: false
+    });
+  }catch(err){
+      console.log(err)
+  }
+}
+exports.getRemoveProductFromCart = async (req,res,next) => {
+  try{
+   const {user} = req
+    const {productId} = req.params
+    await user.removeFromCart(productId)
+    res.redirect('/cart')
+  }catch(err){
+      console.log(err)
+  }
+}

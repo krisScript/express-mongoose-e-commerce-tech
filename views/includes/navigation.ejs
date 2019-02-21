@@ -23,6 +23,12 @@
       <a class="navbar-item  <%= path === '/about' ? 'is-active' : '' %>" href="/about">
         About
       </a>
+      <% if (isAuthenticated) { %>
+        <a class="navbar-item  <%= path === '/cart' ? 'is-active' : '' %>" href="/cart">
+         Cart
+        </a>
+
+         <% } %>
       <% if (isAdmin) { %>
         <a class="navbar-item  <%= path === '/admin/add-product' ? 'is-active' : '' %>" href="/admin/add-product">
           Add Product

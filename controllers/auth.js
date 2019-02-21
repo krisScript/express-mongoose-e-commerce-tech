@@ -56,13 +56,18 @@ exports.postSignUp = async (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
-  
+ let errorMessage = false 
+ let message = req.flash('error');
+  if(message.length > 0){
+    errorMessage = message
+
+  }
   res.render('auth/signup-login', {
     user: req.user,
     title: 'Home',
     path: '/login',
     signup: false,
-    errorMessage: false,
+    errorMessage,
     validationErrors: []
   });
 };

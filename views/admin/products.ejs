@@ -11,7 +11,7 @@
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <section class="section columns is-multiline">
           <% for (let product of products) { %>
-           <div class="column is-one-quarter is-flex" id="post-<%= product._id %>">
+           <div class="column is-one-quarter is-flex" id="product-<%= product._id %>">
               <%- include('../product/product.ejs',{product:product})  %>
            </div>
           <% }  %> 

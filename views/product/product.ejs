@@ -18,8 +18,8 @@
           </div>
         </div>
         <footer class="card-footer">
-            <a href="#" class="card-footer-item">Add To Card</a>
-              <a href="/product/<%= product._id %>" class="card-footer-item">Details</a>
+            <a href="/add-to-cart/<%= product._id %>" class="card-footer-item">Add To Card</a>
+              <a href="/product/<%= product._id %>" class="card-footer-item ">Details</a>
 
             <% if (isAdmin) { %>
               <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>

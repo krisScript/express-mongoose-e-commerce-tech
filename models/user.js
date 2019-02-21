@@ -30,8 +30,8 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
-  cart: {
-    items: [
+  cart:  {
+    products:[
       {
         productId: {
           type: Schema.Types.ObjectId,
@@ -45,40 +45,43 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.addToCart = function(product) {
-  const cartProductIndex = this.cart.items.findIndex(cp => {
+  const cartProductIndex = this.cart.products.findIndex(cp => {
     return cp.productId.toString() === product._id.toString();
   });
   let newQuantity = 1;
-  const updatedCartItems = [...this.cart.items];
+  const updatedCartProducts = [...this.cart.products];
 
   if (cartProductIndex >= 0) {
-    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
-    updatedCartItems[cartProductIndex].quantity = newQuantity;
+    newQuantity = this.cart.products[cartProductIndex].quantity + 1;
+    updatedCartProducts[cartProductIndex].quantity = newQuantity;
   } else {
-    updatedCartItems.push({
+    updatedCartProducts.push({
       productId: product._id,
       quantity: newQuantity
     });
   }
   const updatedCart = {
-    items: updatedCartItems
+    products: updatedCartProducts
   };
   this.cart = updatedCart;
   return this.save();
 };
 
 userSchema.methods.removeFromCart = function(productId) {
-  const updatedCartItems = this.cart.items.filter(item => {
-    return item.productId.toString() !== productId.toString();
+  console.log(productId,this.cart)
+  const updatedCartProducts = this.cart.products.filter(product => {
+    return product._id.toString() !== productId.toString();
   });
-  this.cart.items = updatedCartItems;
+  console.log(updatedCartProducts,'nani')
+  this.cart.products = updatedCartProducts;
   return this.save();
 };
 
 userSchema.methods.clearCart = function() {
-  this.cart = { items: [] };
+  this.cart = { product: [] };
   return this.save();
 };
+
 
 const User = mongoose.model('User', userSchema);
 
