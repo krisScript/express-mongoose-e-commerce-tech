@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const User = require('../models/user')
+const getCartData = require('../util/getCartData')
 exports.getShop = async (req, res, next) => {
   try {
     const { brand } = req.query;
@@ -33,7 +34,8 @@ exports.getProduct = async (req, res, next) => {
         specName !== 'imageUrl' &&
         specName !== '_id' &&
         specName !== '__v' &&
-        specName !== 'availableUnits'
+        specName !== 'availableUnits' &&
+        specName !== 'price'
       ) {
         if (specName == 'memory') {
           return [specName, `${specValue.memoryType} ${specValue.capacity}`];
@@ -69,19 +71,8 @@ exports.postAddToCart = async (req,res,next) => {
 exports.getCart  = async (req,res,next) => {
   try{
     const {user} = req
-    await user.populate('cart.products.productId').execPopulate()
-    const {products} = await user.cart
-    const productsInCart = products.length
-    const priceCalcArray = products.map(product => {
-      return product.quantity * product.productId.price
-    })
-    const  price = priceCalcArray.reduce((a, b) =>    a + b , 0);
-    console.log(price)
-    console.log(priceCalcArray)
-    const taxPerc = 10
-    const tax =  taxPerc *(price/100)
-    const totalPrice = tax + price
-    // console.log(products)
+    const cartData = await getCartData(user)
+    const {products,productsInCart,price,tax,totalPrice} = cartData
     res.render('shop/cart', {
       totalPrice,
       price,
@@ -101,8 +92,9 @@ exports.getRemoveProductFromCart = async (req,res,next) => {
    const {user} = req
     const {productId} = req.params
     await user.removeFromCart(productId)
-    const productsInCart = user.cart.products.length
-    res.status(200).json({ msg: 'product removed',productsInCart });
+    const cartData = await getCartData(user)
+    const {products,productsInCart,price,tax,totalPrice} = cartData
+    res.status(200).json({ msg: 'product removed',productsInCart,tax,price,totalPrice });
   }catch(err){
       console.log(err)
   }

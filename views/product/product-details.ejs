@@ -10,61 +10,102 @@
         <% } %>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <section class="section columns is-multiline">
-          <div class="column is-half">
+          <div class="column is-2">
+         
+       </div>
+          <div class="column is-one-third">
+            <h1 class="title is-size-3"><%= product.name %></h1>
                     <figure class="image is-4by3">
                         <img src="/<%= product.imageUrl %>" alt="Placeholder image">
                     </figure>
           </div>
-          <div class="column is-half">
-            <div class="card">
-                <div class="box">
-                    <div class="media">
+          <div class="column is-1">
+          </div>
+          <div class="column is-one-third">
+              <div class="card">
+                  <div class="card-content">
+                      <div class="media">
                         <div class="media-left">
-                          <figure class="image is-48x48">
-                              <img src="/images/<%= product.brand %>-logo.png" alt="Placeholder image">
+                          <figure class="image is-64x64">
+                            <img src="/images/<%= product.brand %>-logo.png" alt="Placeholder image">
                           </figure>
                         </div>
                         <div class="media-content">
-                            <p class="is-size-4"><%= product.name %></p>
-                            <% if (isAdmin) { %>
-                              <p class="is-size-5">Available Units: <%= product.availableUnits %></p>
-                                 <% } %>
-                            <p class="is-size-5 no-padding-bottom">Price: $<%= product.price %></p>
-                            
+                          <p class=" is-size-4">$<%= product.price %></p>
                         </div>
                       </div>
-                      <table class="table">
-                          <thead>
-                            <tr>
-                                <th>Specification</th>
-                                <th>Description</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                                         <% productSpecs.forEach(spec => { %>
-                                          <% if (spec) { %>
-                                           <tr>
-                                               <td><%= spec[0] %></td>
-                                               <td><%= spec[1] %></td>
-                                           </tr>
-                                           <% } %>
-                                          <% }) %>
-                          </tbody>
-                        </table>
-                        <div class="card">
-                            <div class="content">
-                                <%= product.description %>
-                            </div>
-                          <footer class="card-footer">
-                              <% if (isAdmin) { %>
-                                <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>
-                                  <a data-productId="<%= product._id %>" 
-                                    data-redirect="true" class="card-footer-item delete-btn">Delete</a>
-                                   <% } %>
-                          </footer>
-                        </div>
+   
+                  <div class="card-content">
+                    <div class="content">
+                        <%= product.description %>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                      <a href="/add-to-cart/<%= product._id %>" class="card-footer-item">Add To Card</a>
+
+            <% if (isAdmin) { %>
+              <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>
+                <a data-productId="<%= product._id %>" class="card-footer-item delete-btn">Delete</a>
+                 <% } %>
+                  </footer>
                 </div>
-            </div>
+              
+                
           </div>
+
       </section>
+
+      
+      <section class="section columns is-multiline">
+        <div class="column is-one-third"></div>
+          <div class="card column is-one-third box">
+                  <div class="media">
+                      <div class="media-left">
+                        <figure class="image is-48x48">
+                            <img src="/images/<%= product.brand %>-logo.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="media-content">
+                          <p class="is-size-4"><%= product.name %></p>
+                          <% if (isAdmin) { %>
+                            <p class="is-size-5">Available Units: <%= product.availableUnits %></p>
+                               <% } %>
+                          <p class="is-size-5 no-padding-bottom">Price: $<%= product.price %></p>
+                          
+                      </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                              <th>Specification</th>
+                              <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                                       <% productSpecs.forEach(spec => { %>
+                                        <% if (spec) { %>
+                                         <tr>
+                                             <td><%= spec[0] %></td>
+                                             <td><%= spec[1] %></td>
+                                         </tr>
+                                         <% } %>
+                                        <% }) %>
+                        </tbody>
+                      </table>
+                      <div class="card">
+                          
+                        <footer class="card-footer">
+                            <% if (isAdmin) { %>
+                              <a href="/admin/edit-product/<%= product._id %>" class="card-footer-item">Edit</a>
+                                <a data-productId="<%= product._id %>" 
+                                  data-redirect="true" class="card-footer-item delete-btn">Delete</a>
+                                 <% } %>
+                        </footer>
+                      </div>
+          
+        </div>
+        <div class="column is-one-third"></div>
+      </section>
+     
+        
     <%- include('../includes/end.ejs') %></section>

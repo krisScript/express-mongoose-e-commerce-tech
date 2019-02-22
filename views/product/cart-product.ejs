@@ -1,6 +1,6 @@
 <article class="media " id="cart-product-<%= product._id %>">
         <figure class="media-left">
-          <p class="image is-128x128">
+          <p class="image is-64x64">
             <img src="/<%= product.productId.imageUrl %>">
           </p>
         </figure>
@@ -10,7 +10,9 @@
               <strong class="is-size-5"><%= product.productId.name %></strong> 
               <br >
               <strong class="has-text-grey-light "><%= product.productId.screenSize %> inch,</strong> 
+              <br>
               <strong class="has-text-grey-light"><%= product.productId.memory.capacity %><%= product.productId.memory.memoryType %> </strong> 
+              <br>
               <strong class="has-text-grey-light"><%= product.productId.ram %>GB RAM</strong> 
         
             </p>
@@ -25,10 +27,10 @@
         </div>
         <div class="media-right">
                 <br >
-                <strong class="is-size-4" >$<%=
+                <strong class="is-size-5" >$<%=
                    product.quantity * product.productId.price %></strong> 
                 <br>
-                <strong class="is-size-4" >Quantity: <%= product.quantity %></strong> 
+                <strong class="is-size-5" >Quantity: <%= product.quantity %></strong> 
                 <br>
         </div>
       </article>
