@@ -90,6 +90,14 @@ app.use((req, res, next) => {
 });
 
 adminConfig();
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+);
+app.use(compression());
+app.user(morgan('combined', { stream: accessLogStream }));
+app.use(helmet());
+
 app.user()
 app.use(passport.initialize());
 app.use(passport.session());
