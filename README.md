@@ -1,5 +1,16 @@
 # Express Mongoose Eccomerce app
- 
+ The user is able to:
+* Sign Up 
+* Login
+* Add and Remove products to their cart
+
+ The admin is able to:
+* create products
+* edit products
+* delete products
+
+
+
 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -43,7 +54,11 @@ yarn start
 ```
 npm start
 ```
+## Start WEBDASH
 
+```
+npx webdash serve
+```
 
 ## Authors
 

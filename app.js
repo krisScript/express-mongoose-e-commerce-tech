@@ -26,8 +26,8 @@ const authRouter = require('./routes/auth');
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const shopRouter = require('./routes/shop');
-const dbKey = require('./config/keys').mongoURI;
-mongoose.connect(dbKey, { useNewUrlParser: true });
+const {mongoURI} = require('./config/keys')
+mongoose.connect(mongoURI, { useNewUrlParser: true });
 
 app.set('view engine', 'ejs');
 const csrfProtection = csrf();
@@ -76,7 +76,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(
   session({
-    secret: 'secret',
+    secret: randomstring(),
     resave: true,
     saveUninitialized: true
   })
@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 });
 
 adminConfig();
-
+app.user()
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {

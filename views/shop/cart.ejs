@@ -15,7 +15,12 @@
                 <h1 class="title is-size-3 has-text-centered products-count"><%= productsInCart %> items in the cart</h1>
                 <% }else { %>
                   <h1 class="title is-size-3 has-text-centered products-count"> <%= productsInCart === 0 ? 'No products Found!' : '1 product found' %></h1>
-                  
+                  <div class="has-text-centered">
+                              <a href="/shop" class="button is-dark">
+                                Continue Shopping
+                              </a>
+                          </div>
+              
                    <%}  %>
             
              <section class="section columns is-multiline">
@@ -24,13 +29,8 @@
                       
                     </div>
                     <div class="column is-one-third box">
-                        <% if (products.length === 0) { %>
-                          <div class="has-text-centered">
-                              <a href="/shop" class="button is-dark">
-                                Continue Shopping
-                              </a>
-                          </div>
-                          <% } %>
+                      
+                          
                         <% for (let product of products) { %>
                              <%- include('../product/cart-product.ejs',{product:product})  %>
                          <% }  %> 

@@ -1,3 +1,6 @@
 module.exports = {
-  mongoURI: ``
+  mongoURI: ``,
+  adminUsername:'',
+  adminPassword:'',
+  adminEmail:'',
 };
